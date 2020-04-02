@@ -1,7 +1,8 @@
+import axios from 'axios';
 import * as dynamoDbLib from "./libs/dynamodb-lib";
-import { success, failure } from "./libs/response-lib";
+import { debugHandler } from "./libs/debug-lib";
 
-export async function main(event, context) {
+export const main = debugHandler(async (event, context) => {
   const params = {
     TableName: process.env.tableName,
     // 'KeyConditionExpression' defines the condition for the query
@@ -16,11 +17,18 @@ export async function main(event, context) {
     }
   };
 
-  try {
-    const result = await dynamoDbLib.call("query", params);
-    // Return the matching list of items in response body
-    return success(result.Items);
-  } catch (e) {
-    return failure({ status: false });
-  }
-}
+  const result = await dynamoDbLib.call("query", params);
+
+  await axios({
+    method  : 'get',
+    url     : `https://ph2kc1zl5m.execute-api.us-east-1.amazonaws.com/node12?case=normal`,
+  });
+
+  await axios({
+    method  : 'post',
+    url     : `https://ph2kc1zl5m.execute-api.us-east-1.amazonaws.com/node12?case=normal`,
+  });
+
+  // Return the matching list of items in response body
+  return result.Items;
+});
