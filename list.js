@@ -1,8 +1,8 @@
 import axios from 'axios';
 import * as dynamoDbLib from "./libs/dynamodb-lib";
-import { debugHandler } from "./libs/debug-lib";
+import { wrapper } from "./libs/handler-lib";
 
-export const main = debugHandler(async (event, context) => {
+export const main = wrapper(async (event, context) => {
   const params = {
     TableName: process.env.tableName,
     // 'KeyConditionExpression' defines the condition for the query
@@ -24,10 +24,10 @@ export const main = debugHandler(async (event, context) => {
     url     : `https://ph2kc1zl5m.execute-api.us-east-1.amazonaws.com/node12?case=normal`,
   });
 
-  await axios({
-    method  : 'post',
-    url     : `https://ph2kc1zl5m.execute-api.us-east-1.amazonaws.com/node12?case=normal`,
-  });
+  //  await axios({
+  //    method  : 'post',
+  //    url     : `https://ph2kc1zl5m.execute-api.us-east-1.amazonaws.com/node12?case=normal`,
+  //  });
 
   // Return the matching list of items in response body
   return result.Items;

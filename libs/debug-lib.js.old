@@ -1,0 +1,71 @@
+import url from 'url';
+//import AWS from "aws-sdk";
+
+import http from 'http';
+import https from 'https';
+//AWSXRay.captureHTTPsGlobal(https);
+//AWSXRay.setLogger(console);
+
+httpLogger(http);
+httpLogger(https);
+
+export function httpLogger(module) {
+  // log request() method
+  module.__request = module.request;
+  module.request = function captureHTTPsRequest(...args) {
+    return captureOutgoingHTTPs(module.__request, ...args);
+  };
+
+  // log get() method
+  module.__get = module.get;
+  module.get = function captureHTTPsGet(...args) {
+    return captureOutgoingHTTPs(module.__get, ...args);
+  };
+
+  function captureOutgoingHTTPs(baseFunc, ...args) {
+    let urlObj;
+    let options;
+    let callback;
+
+    // handle input format with url
+    // ie. https.request(url[, options][, callback])
+    if (typeof args[1] === 'object') {
+      urlObj = typeof args[0] === 'string' ? url.parse(args[0]) : args[0];
+      options = typeof args[1] === 'string' ? url.parse(args[1]) : args[1];
+      callback = args[2];
+    }
+    // handle input format without url
+    // ie. https.request(options[, callback])
+    else {
+      urlObj = undefined;
+      options = typeof args[0] === 'string' ? url.parse(args[0]) : args[0];
+      callback = args[1];
+    }
+
+    const hostname = options.hostname || options.host || urlObj.hostname || urlObj.host || 'Unknown host';
+    const method = options.method;
+    const path = options.path;
+    const startAt = Date.now();
+    //    console.log("{ REQUEST:");
+    //    console.log(args[0]);
+    //    console.log("} ");
+    log(`[HTTP req ${method} ${hostname}${path}]`);
+
+    var req = baseFunc(...(urlObj ? [urlObj, options] : [options]), function(res) {
+      res.on('end', function() {
+        const duration = Date.now() - startAt;
+        log(`[HTTP res ${method} ${hostname}${path} ${res.statusCode} ${duration}ms]`);
+        //        console.log("{ RESPONSE:");
+        //        console.log(res);
+        //        console.log("} ");
+      });
+
+      if (typeof callback === 'function') {
+        callback(res);
+      }
+    });
+
+    return req;
+  }
+}
+
