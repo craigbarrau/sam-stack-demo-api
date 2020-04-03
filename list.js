@@ -24,10 +24,10 @@ export const main = handler(async (event, context) => {
     url     : `https://ph2kc1zl5m.execute-api.us-east-1.amazonaws.com/node12?case=normal`,
   });
 
-  //  await axios({
-  //    method  : 'post',
-  //    url     : `https://ph2kc1zl5m.execute-api.us-east-1.amazonaws.com/node12?case=normal`,
-  //  });
+  await axios({
+    method  : 'post',
+    url     : `https://ph2kc1zl5m.execute-api.us-east-1.amazonaws.com/node12?case=normal`,
+  });
 
   // Return the matching list of items in response body
   return result.Items;

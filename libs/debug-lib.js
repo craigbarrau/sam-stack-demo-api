@@ -3,42 +3,42 @@ import util from 'util';
 
 AWS.config.logger = { log };
 
-let timeoutTimer;
-const logs = [];
+let __timeoutTimer;
+let __logs;
 
 export function init(event, context) {
-  logs.length = 0;
+  __logs = [];
 
   // Log api event
   log('API event', JSON.stringify({
+    body: event.body,
     pathParameters: event.pathParameters,
     queryStringParameters: event.queryStringParameters,
-    body: event.body,
   }));
 
   // Start timeout timer
-  const timeLeft = context.getRemainingTimeInMillis();
-  timeoutTimer = setTimeout(() => {
-    if (timeoutTimer) {
-      flush(new Error('Lambda will timeout in 3 seconds'));
-    }
-  }, timeLeft - 3000);
+  __timeoutTimer = setTimeout(
+    () => __timeoutTimer && flush(new Error('Lambda will timeout in 3 seconds')),
+    context.getRemainingTimeInMillis() - 3000
+  );
 }
 
 export function end() {
   // Clear timeout timer
-  clearTimeout(timeoutTimer);
-  timeoutTimer = undefined;
+  clearTimeout(__timeoutTimer);
+  __timeoutTimer = null;
 }
 
 export function log() {
-  const string = util.format.apply(null, arguments);
-  logs.push({ date:new Date(), string });
+  __logs.push({
+    date: new Date(),
+    string: util.format.apply(null, arguments)
+  });
 }
 
 export function flush(e) {
   console.error(e);
-  logs.forEach(({ date, string }) =>
+  __logs.forEach(({ date, string }) =>
     console.log('DEBUG', date, string)
   );
 }
