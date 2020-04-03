@@ -14,7 +14,7 @@ export const main = handler(async (event, context) => {
       createdAt: Date.now()
     }
   };
-  
+
   await dynamoDbLib.call("put", params);
   return params.Item;
 });
