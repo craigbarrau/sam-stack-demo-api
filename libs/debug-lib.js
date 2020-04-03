@@ -1,7 +1,7 @@
 import AWS from 'aws-sdk';
 import util from 'util';
 
-AWS.config.logger = this;
+AWS.config.logger = { log };
 
 let timeoutTimer;
 const logs = [];
