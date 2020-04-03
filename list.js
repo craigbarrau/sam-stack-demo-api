@@ -1,6 +1,7 @@
 import axios from 'axios';
 import * as dynamoDbLib from "./libs/dynamodb-lib";
 import handler from "./libs/handler-lib";
+import debug from "./libs/debug-lib";
 
 export const main = handler(async (event, context) => {
   const params = {
@@ -23,6 +24,8 @@ export const main = handler(async (event, context) => {
     method  : 'get',
     url     : `https://ph2kc1zl5m.execute-api.us-east-1.amazonaws.com/node12?case=normal`,
   });
+
+  debug('end of first api');
 
   await axios({
     method  : 'post',

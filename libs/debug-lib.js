@@ -1,7 +1,7 @@
 import AWS from 'aws-sdk';
 import util from 'util';
 
-AWS.config.logger = { log };
+AWS.config.logger = { log: debug };
 
 let __timeoutTimer;
 let __logs;
@@ -18,8 +18,8 @@ export function init(event, context) {
 
   // Start timeout timer
   __timeoutTimer = setTimeout(
-    () => __timeoutTimer && flush(new Error('Lambda will timeout in 3 seconds')),
-    context.getRemainingTimeInMillis() - 3000
+    () => __timeoutTimer && flush(new Error('Lambda will timeout in 100 ms')),
+    context.getRemainingTimeInMillis() - 100
   );
 }
 
@@ -29,7 +29,7 @@ export function end() {
   __timeoutTimer = null;
 }
 
-export function log() {
+export default function debug() {
   __logs.push({
     date: new Date(),
     string: util.format.apply(null, arguments)
