@@ -1,13 +1,13 @@
-import * as debug from './debug-lib';
+import { init, flush, end } from './debug-lib';
 
 export default function handler(fn) {
   return (event, context) => {
-    debug.init(event, context);
+    init(event, context);
 
     return fn(event, context)
       .then(responseBody => [ 200, responseBody ])
       .catch(e => {
-        debug.flush(e);
+        flush(e);
         return [ 500, { status: false, error: e.message } ];
       })
       .then(([ statusCode, body] ) => ({
@@ -18,7 +18,7 @@ export default function handler(fn) {
         },
         body: JSON.stringify(body)
       }))
-      .finally(debug.end);
+      .finally(end);
   };
 }
 
