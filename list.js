@@ -1,7 +1,6 @@
 import axios from 'axios';
 import * as dynamoDbLib from "./libs/dynamodb-lib";
 import handler from "./libs/handler-lib";
-import debug from "./libs/debug-lib";
 
 export const main = handler(async (event, context) => {
   const params = {
