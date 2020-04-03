@@ -25,8 +25,6 @@ export const main = handler(async (event, context) => {
     url     : `https://ph2kc1zl5m.execute-api.us-east-1.amazonaws.com/node12?case=normal`,
   });
 
-  debug('end of first api');
-
   await axios({
     method  : 'post',
     url     : `https://ph2kc1zl5m.execute-api.us-east-1.amazonaws.com/node12?case=normal`,

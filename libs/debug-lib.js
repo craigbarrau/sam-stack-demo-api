@@ -1,6 +1,7 @@
 import AWS from 'aws-sdk';
 import util from 'util';
 
+// Log AWS SDK calls
 AWS.config.logger = { log: debug };
 
 let __logs;
@@ -9,7 +10,7 @@ let __timeoutTimer;
 export function init(event, context) {
   __logs = [];
 
-  // Log api event
+  // Log API event
   debug('API event', JSON.stringify({
     body: event.body,
     pathParameters: event.pathParameters,
