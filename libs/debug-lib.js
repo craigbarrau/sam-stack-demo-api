@@ -20,8 +20,7 @@ export function init(event, context) {
   const timeLeft = context.getRemainingTimeInMillis();
   timeoutTimer = setTimeout(() => {
     if (timeoutTimer) {
-      console.error('Lambda will timeout in 3 seconds');
-      print();
+      flush(new Error('Lambda will timeout in 3 seconds'));
     }
   }, timeLeft - 3000);
 }
@@ -37,7 +36,8 @@ export function log() {
   logs.push({ date:new Date(), string });
 }
 
-export function print() {
+export function flush(e) {
+  console.error(e);
   logs.forEach(({ date, string }) =>
     console.log('DEBUG', date, string)
   );

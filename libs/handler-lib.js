@@ -7,8 +7,7 @@ export default function handler(fn) {
     return fn(event, context)
       .then(responseBody => [ 200, responseBody ])
       .catch(e => {
-        console.error(e);
-        debug.print();
+        debug.flush(e);
         return [ 500, { status: false, error: e.message } ];
       })
       .then(([ statusCode, body] ) => ({
