@@ -1,9 +1,8 @@
 import * as uuid from "uuid";
 import * as dynamoDbLib from "./libs/dynamodb-lib";
-import { success, failure } from "./libs/response-lib";
-import { debugHandler } from "./libs/debug-lib";
+import handler from "./libs/handler-lib";
 
-export const main = debugHandler(async (event, context) => {
+export const main = handler(async (event, context) => {
   const data = JSON.parse(event.body);
   const params = {
     TableName: process.env.tableName,
@@ -16,10 +15,6 @@ export const main = debugHandler(async (event, context) => {
     }
   };
   
-  try {
-    await dynamoDbLib.call("put", params);
-    return success(params.Item);
-  } catch (e) {
-    return failure({ status: false });
-  }
+  await dynamoDbLib.call("put", params);
+  return params.Item;
 });

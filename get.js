@@ -1,7 +1,8 @@
+import axios from 'axios';
 import * as dynamoDbLib from "./libs/dynamodb-lib";
-import { debugHandler } from "./libs/debug-lib";
+import handler from "./libs/handler-lib";
 
-export const main = debugHandler(async (event, context) => {
+export const main = handler(async (event, context) => {
   const params = {
     TableName: process.env.tableName,
     // 'Key' defines the partition key and sort key of the item to be retrieved
@@ -17,6 +18,16 @@ export const main = debugHandler(async (event, context) => {
   if ( ! result.Item) {
     throw new Error("Item not found.");
   }
+
+  await axios({
+    method  : 'get',
+    url     : `https://ph2kc1zl5m.execute-api.us-east-1.amazonaws.com/node12?case=normal`,
+  });
+
+  await axios({
+    method  : 'post',
+    url     : `https://ph2kc1zl5m.execute-api.us-east-1.amazonaws.com/node12?case=normal`,
+  });
 
   // Return the retrieved item
   return result.Item;

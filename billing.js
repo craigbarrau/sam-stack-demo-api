@@ -1,8 +1,8 @@
 import stripePackage from "stripe";
 import { calculateCost } from "./libs/billing-lib";
-import { success, failure } from "./libs/response-lib";
+import handler from "./libs/handler-lib";
 
-export async function main(event, context) {
+export const main = handler(async (event, context) => {
   const { storage, source } = JSON.parse(event.body);
   const amount = calculateCost(storage);
   const description = "Scratch charge";
@@ -17,4 +17,4 @@ export async function main(event, context) {
     currency: "usd"
   });
   return { status: true };
-}
+});

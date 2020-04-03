@@ -1,24 +1,25 @@
-import { init, flush, end } from "./debug-lib";
+import * as debug from "./debug-lib";
 
 export default function handler(fn) {
   return (event, context) => {
-    init(event, context);
+    debug.init(event, context);
 
     return fn(event, context)
       .then((responseBody) => [200, responseBody])
       .catch((e) => {
-        flush(e);
+        debug.flush(e);
         return [500, { error: e.message }];
       })
-      .then(([statusCode, body]) => ({
+      .then(([statusCode, body]) => { console.log('done with ', statusCode); return {
         statusCode,
         headers: {
           "Access-Control-Allow-Origin": "*",
           "Access-Control-Allow-Credentials": true,
         },
         body: JSON.stringify(body),
-      }))
-      .finally(end);
+      };
+      })
+      .finally(debug.end);
   };
 }
 

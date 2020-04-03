@@ -28,6 +28,7 @@ export function init(event, context) {
 }
 
 export function end() {
+  console.log('timer end');
   // Clear timeout timer
   clearTimeout(__timeoutTimer);
   __timeoutTimer = null;
