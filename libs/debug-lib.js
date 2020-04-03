@@ -13,22 +13,24 @@ export function init(event, context) {
   // Log API event
   debug(
     "API event",
-    JSON.stringify({
+    {
       body: event.body,
       pathParameters: event.pathParameters,
       queryStringParameters: event.queryStringParameters,
-    })
+    }
   );
 
   // Start timeout timer
   __timeoutTimer = setTimeout(
-    () => __timeoutTimer && flush(new Error("Lambda will timeout in 100 ms")),
+    () => {
+  console.log('timer reached');
+      __timeoutTimer && flush(new Error("Lambda will timeout in 100 ms")); },
     context.getRemainingTimeInMillis() - 100
   );
 }
 
 export function end() {
-  console.log('timer end');
+  console.log('timer canceled');
   // Clear timeout timer
   clearTimeout(__timeoutTimer);
   __timeoutTimer = null;
@@ -36,7 +38,7 @@ export function end() {
 
 export function flush(e) {
   console.error(e);
-  __logs.forEach(({ date, string }) => console.log("DEBUG", date, string));
+  __logs.forEach(({ date, string }) => console.debug(date, string));
 }
 
 export default function debug() {

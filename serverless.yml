@@ -19,7 +19,7 @@ custom:
 provider:
   name: aws
   runtime: nodejs12.x
-  stage: dev
+  stage: debug
   region: us-east-1
   profile: account-jay-playground
 
