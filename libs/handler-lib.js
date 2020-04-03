@@ -6,6 +6,8 @@ AWS.config.logger = debug;
 
 export function wrapper(handler) {
   return async (event, context) => {
+    let statusCode = 200;
+    let responseBody;
     let timeoutTimer;
 
     // log api request data
@@ -17,8 +19,27 @@ export function wrapper(handler) {
     }));
 
     startTimeoutTimer();
-    await invokeHandler();
+    try {
+      responseBody = await handler();
+    } catch(e) {
+      // log error
+      console.error(e);
+      debug.print();
+
+      statusCode = 500;
+      responseBody = { status: false, error: e.message};
+    }
+
     clearTimeoutTimer();
+
+    return {
+      statusCode,
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Credentials": true
+      },
+      body: JSON.stringify(responseBody)
+    };
 
     function startTimeoutTimer() {
       const timeLeft = context.getRemainingTimeInMillis();
@@ -31,33 +52,8 @@ export function wrapper(handler) {
     }
 
     function clearTimeoutTimer() {
-      clearTimeout(timer);
-      timer = undefined;
-    }
-
-    async function invokeHandler() {
-      let statusCode = 200;
-      let responseBody;
-
-      try {
-        responseBody = await handler();
-      } catch(e) {
-        // log error
-        console.error(e);
-        debug.print();
-
-        statusCode = 500;
-        responseBody = { status: false, error: e.message};
-      }
-
-      return {
-        statusCode,
-        headers: {
-          "Access-Control-Allow-Origin": "*",
-          "Access-Control-Allow-Credentials": true
-        },
-        body: JSON.stringify(responseBody)
-      };
+      clearTimeout(timeoutTimer);
+      timeoutTimer = undefined;
     }
 
   };
