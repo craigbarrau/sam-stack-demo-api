@@ -8,7 +8,7 @@ export function wrapper(handler) {
     debug.init(event, context);
 
     try {
-      responseBody = await handler();
+      responseBody = await handler(event, context);
     } catch(e) {
       // log error
       console.error(e);
