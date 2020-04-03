@@ -1,8 +1,8 @@
 import axios from 'axios';
 import * as dynamoDbLib from "./libs/dynamodb-lib";
-import { wrapper } from "./libs/handler-lib";
+import handler from "./libs/handler-lib";
 
-export const main = wrapper(async (event, context) => {
+export const main = handler(async (event, context) => {
   const params = {
     TableName: process.env.tableName,
     // 'KeyConditionExpression' defines the condition for the query

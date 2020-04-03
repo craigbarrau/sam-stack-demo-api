@@ -1,10 +1,10 @@
 import * as debug from './debug-lib';
 
-export function wrapper(handler) {
+export default function handler(fn) {
   return (event, context) => {
     debug.init(event, context);
 
-    return handler(event, context)
+    return fn(event, context)
       .then(responseBody => [ 200, responseBody ])
       .catch(e => {
         console.error(e);
@@ -23,34 +23,3 @@ export function wrapper(handler) {
   };
 }
 
-//export function wrapper(handler) {
-//  return async (event, context) => {
-//    let statusCode = 200;
-//    let responseBody;
-//
-//    debug.init(event, context);
-//
-//    try {
-//      responseBody = await handler(event, context);
-//    } catch(e) {
-//      // log error
-//      console.error(e);
-//      debug.print();
-//
-//      statusCode = 500;
-//      responseBody = { status: false, error: e.message};
-//    }
-//
-//    debug.end();
-//
-//    return {
-//      statusCode,
-//      headers: {
-//        "Access-Control-Allow-Origin": "*",
-//        "Access-Control-Allow-Credentials": true
-//      },
-//      body: JSON.stringify(responseBody)
-//    };
-//  };
-//}
-//
