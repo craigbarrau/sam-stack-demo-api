@@ -1,5 +1,4 @@
-import axios from 'axios';
-import * as dynamoDbLib from "./libs/dynamodb-lib";
+import * as dynamoDb from "./libs/dynamodb-lib";
 import handler from "./libs/handler-lib";
 
 export const main = handler(async (event, context) => {
@@ -17,12 +16,7 @@ export const main = handler(async (event, context) => {
     }
   };
 
-  const result = await dynamoDbLib.call("query", params);
-
-  await axios({
-    method  : 'get',
-    url     : `https://ph2kc1zl5m.execute-api.us-east-1.amazonaws.com/node12?case=normal`,
-  });
+  const result = await dynamoDb.query(params);
 
   // Return the matching list of items in response body
   return result.Items;
