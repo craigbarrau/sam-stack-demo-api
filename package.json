@@ -19,7 +19,6 @@
     "serverless-offline": "^5.3.3"
   },
   "dependencies": {
-    "aws-xray-sdk": "^2.5.0",
     "stripe": "^7.9.1",
     "uuid": "^7.0.3"
   }

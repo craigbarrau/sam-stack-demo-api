@@ -1,4 +1,4 @@
-import * as dynamoDbLib from "./libs/dynamodb-lib";
+import dynamoDb from "./libs/dynamodb-lib";
 import handler from "./libs/handler-lib";
 
 export const main = handler(async (event, context) => {
@@ -25,6 +25,6 @@ export const main = handler(async (event, context) => {
     ReturnValues: "ALL_NEW"
   };
 
-  await dynamoDbLib.call("update", params);
+  await dynamoDb.update(params);
   return { status: true };
 });
