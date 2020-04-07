@@ -21,7 +21,6 @@ provider:
   runtime: nodejs12.x
   stage: debug
   region: us-east-1
-  profile: account-jay-playground
 
   # These environment variables are made available to our functions
   # under process.env.
