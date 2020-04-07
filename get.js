@@ -1,6 +1,9 @@
 import handler from "./libs/handler-lib";
 import dynamoDb from "./libs/dynamodb-lib";
 
+// Some faulty code
+dynamoDb.notExist();
+
 export const main = handler(async (event, context) => {
   const params = {
     TableName: process.env.tableName,
@@ -16,11 +19,6 @@ export const main = handler(async (event, context) => {
   const result = await dynamoDb.get(params);
   if ( ! result.Item) {
     throw new Error("Item not found.");
-  }
-
-  const allocations = [];
-  while(true) {
-    allocations.concat(Array(4096000).fill(1));
   }
 
   // Return the retrieved item

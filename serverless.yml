@@ -65,8 +65,6 @@ functions:
     # - path: url path is /notes/{id}
     # - method: GET request
     handler: get.main
-    memorySize: 128
-    timeout: 20
     events:
       - http:
           path: notes/{id}
