@@ -30,8 +30,8 @@ export function end() {
 }
 
 export function flush(e) {
-  console.error(e);
   logs.forEach(({ date, string }) => console.debug(date, string));
+  console.error(e);
 }
 
 export default function debug() {
