@@ -1,0 +1,13 @@
+version = 0.1
+[default]
+[default.deploy]
+[default.deploy.parameters]
+stack_name = "notes-api"
+s3_bucket = "<S3_BUCKET_NAME>"
+s3_prefix = "notes-api"
+region = "us-east-1"
+profile = "default"
+confirm_changeset = true
+capabilities = "CAPABILITY_IAM"
+parameter_overrides = "ValuesTableName=\"values\" StripeSecretKey=\"<STRIPE_SECRET_KEY>\""
+
