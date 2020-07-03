@@ -4,7 +4,6 @@
   "description": "This project contains source code and supporting files for a serverless application that you can deploy with the SAM CLI.",
   "private": true,
   "scripts": {
-    "test": "jest",
     "build": "webpack-cli",
     "clean": "rimraf .aws-sam .vscode",
     "prebuild": "rimraf .aws-sam .vscode",
