@@ -4,7 +4,7 @@
 
 :hear_no_evil: **The original Serverless Framework version is available [here](https://github.com/AnomalyInnovations/serverless-stack-demo-api)**
 
-:speak_no_evil: The SAM-based backend may be better placed as an extra credit chapter, so there is currently no branching in place to support multiple chapters/steps. All of the latest AWS SAM specific resources are on the master.
+:speak_no_evil: **The SAM-based backend may be better placed as an extra credit chapter, so there is currently no branching in place to support multiple chapters/steps. All of the latest AWS SAM specific resources are on the master.**
 
 [Serverless Stack](http://serverless-stack.com) is a free comprehensive guide to creating full-stack serverless applications. We create a [note taking app](http://demo2.serverless-stack.com) from scratch.
 
