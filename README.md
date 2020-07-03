@@ -1,6 +1,7 @@
 # SAM Stack Demo API
 
 :see_no_evil: **This is an AWS SAM fork of the popular Serverless Notes API**
+
 :hear_no_evil: **If you are looking for the original Serverless Framework version, [click here](https://github.com/AnomalyInnovations/serverless-stack-demo-api)**
 
 [Serverless Stack](http://serverless-stack.com) is a free comprehensive guide to creating full-stack serverless applications. We create a [note taking app](http://demo2.serverless-stack.com) from scratch.
@@ -9,14 +10,7 @@ This repo is for the serverless backend API that we build over the course of the
 
 #### Steps
 
-:speak_no_evil: **As AWS SAM is an extra credit chapter, there is no branching needed to support multiple chapters/steps.**
-**The below indexes are relevant for the original [Serverless Framework](https://github.com/AnomalyInnovations/serverless-stack-demo-api) version of the course only**
-
-~~To support the different chapters and steps of the tutorial; we use branches to represent the project codebase at the various points. Here is an index of the various chapters and branches in order.
-
-- [Initialize the Backend Repo](../../tree/initialize-the-backend-repo)
-- [Handle API Gateway CORS Errors](../../tree/handle-api-gateway-cors-errors)
-- [Deploy Your Serverless Infrastructure](../../tree/deploy-your-serverless-infrastructure)~~
+:speak_no_evil: As AWS SAM is targeted as an extra credit chapter, there is currently no need for branching needed to support multiple chapters/steps.
 
 #### Usage
 
