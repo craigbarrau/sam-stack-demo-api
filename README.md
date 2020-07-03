@@ -1,39 +1,44 @@
-# Serverless Stack Demo API
+# SAM Stack Demo API
+
+:see_no_evil: **This is an AWS SAM fork of the popular Serverless Notes API**
+:hear_no_evil: **If you are looking for the original Serverless Framework version, [click here](https://github.com/AnomalyInnovations/serverless-stack-demo-api)**
 
 [Serverless Stack](http://serverless-stack.com) is a free comprehensive guide to creating full-stack serverless applications. We create a [note taking app](http://demo2.serverless-stack.com) from scratch.
 
-This repo is for the serverless backend API that we build over the course of the tutorial. You can find the repo for the frontend React app [here](https://github.com/AnomalyInnovations/serverless-stack-demo-client). And the repo for the tutorial [here](https://github.com/AnomalyInnovations/serverless-stack-com).
+This repo is for the serverless backend API that we build over the course of the tutorial. You can find the repo for the frontend React app [here](https://github.com/AnomalyInnovations/serverless-stack-demo-client). And the repo for the tutorial [here](https://github.com/craigbarrau/serverless-stack-com).
 
 #### Steps
 
-To support the different chapters and steps of the tutorial; we use branches to represent the project codebase at the various points. Here is an index of the various chapters and branches in order.
+:speak_no_evil: **As AWS SAM is an extra credit chapter, there is no branching needed to support multiple chapters/steps.**
+**The below indexes are relevant for the original [Serverless Framework](https://github.com/AnomalyInnovations/serverless-stack-demo-api) version of the course only**
+
+~~To support the different chapters and steps of the tutorial; we use branches to represent the project codebase at the various points. Here is an index of the various chapters and branches in order.
 
 - [Initialize the Backend Repo](../../tree/initialize-the-backend-repo)
 - [Handle API Gateway CORS Errors](../../tree/handle-api-gateway-cors-errors)
-- [Deploy Your Serverless Infrastructure](../../tree/deploy-your-serverless-infrastructure)
+- [Deploy Your Serverless Infrastructure](../../tree/deploy-your-serverless-infrastructure)~~
 
 #### Usage
 
-To use this repo locally you need to have the [Serverless framework](https://serverless.com) installed.
+To use this repo locally you need to have the [AWS SAM](https://aws.amazon.com/serverless/sam/) installed.
+
+The AWS SAM installation steps are available [here](https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/serverless-sam-cli-install.html)
+
+Clone this repo, install the NPM packages and build the source using webpack
 
 ``` bash
-$ npm install serverless -g
-```
-
-Clone this repo and install the NPM packages.
-
-``` bash
-$ git clone https://github.com/AnomalyInnovations/serverless-stack-demo-api
+$ git clone https://github.com/craigbarrau/sam-stack-demo-api
 $ npm install
+$ npm run-script build
 ```
 
-Run a single API on local.
+We can run a single API request on local as follows:
 
 ``` bash
-$ serverless invoke local --function list --path event.json
+$ sam local invoke List -e mocks/list-event.json
 ```
 
-Where, `event.json` contains the request event info and looks something like this.
+Where, `mocks/list-event.json` contains the request event info and looks something like this.
 
 ``` json
 {
@@ -47,16 +52,23 @@ Where, `event.json` contains the request event info and looks something like thi
 }
 ```
 
+Alternatively, we can start our API locally with the following
+
+``` bash
+$ sam local start-api 
+$ open http://localhost:3000/notes
+```
+
 Finally, run this to deploy to your AWS account.
 
 ``` bash
-$ serverless deploy
+$ sam deploy --guided
 ```
-
-This project refers to an `.env` file for secret environment variables that are not checking in to the repo. Make sure to create one before dpeloying - https://serverless-stack.com/chapters/load-secrets-from-env.html.
 
 ---
 
-This repo is maintained by [Anomaly Innovations](https://anoma.ly); makers of [Seed](https://seed.run) and [Serverless Stack](https://serverless-stack.com).
+This repo is maintained by [Craig Barr](http://github.com/craigbarrau).
+
+The original repo is maintained by [Anomaly Innovations](https://anoma.ly); makers of [Seed](https://seed.run) and [Serverless Stack](https://serverless-stack.com).
 
 [Email]: mailto:contact@anoma.ly
