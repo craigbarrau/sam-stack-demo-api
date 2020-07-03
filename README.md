@@ -10,7 +10,7 @@ This repo is for the serverless backend API that we build over the course of the
 
 #### Steps
 
-:speak_no_evil: As AWS SAM is targeted as an extra credit chapter, there is currently no need for branching needed to support multiple chapters/steps.
+:speak_no_evil: As AWS SAM is targeted as an extra credit chapter, there is currently no need for branching to support multiple chapters/steps.
 
 #### Usage
 
