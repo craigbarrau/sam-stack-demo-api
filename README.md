@@ -59,7 +59,7 @@ $ sam deploy --guided
 
 ---
 
-This repo is maintained by [Craig Barr](http://github.com/craigbarrau).
+This repo is maintained by [Craig Barr](http://github.com/craigbarrau). Additional information related to the tutorial is available [here](https://gist.github.com/m0un10/a5b07b120df5319c0b0575e2a979e04c)
 
 The original repo is maintained by [Anomaly Innovations](https://anoma.ly); makers of [Seed](https://seed.run) and [Serverless Stack](https://serverless-stack.com).
 
